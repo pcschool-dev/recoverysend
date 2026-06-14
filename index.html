@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบกู้คืนรหัสผ่าน @ โรงเรียนปากช่อง</title>
+    <link rel="icon" type="image/x-icon" href="Logo.png"> 
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+<style>
+        iframe {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            border:none;
+        }
+	#loading { 
+	  position: fixed; 
+	  top: 0; 
+	  left: 0; 
+	  width: 100%; 
+	  height: 100VH; 	 
+	  z-index: 9999; /* Place loader on top of other content */ 
+	} 
+	 
+	.loader { 
+	  margin: auto; 	  
+	}
+</style>
+</head>
+<!-- <body>  -->
+<body onload="preLoading()">
+	<div style="display:none;" align="center" id="FBloading" >
+		<h4>โปรดเปิดด้วย เบราว์เซอร์ภายนอก <br>Please open in external browser.</h4>	    
+    	</div> 
+	<div align=center id="loading"
+	    style="display:flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0;">
+	    <dotlottie-player src="https://lottie.host/3924723b-b000-47d9-877a-48fc904e0c67/UiIOpIdURz.lottie"
+	      background="transparent" speed="1" style="width: 300px; height: 300px" loop autoplay>
+	    </dotlottie-player>
+	<!-- 
+	    <h4 class="fw-bold mb-3" style="text-align: center;" style="color: #333; font-family: 'Sarabun', sans-serif;">
+	      <span>กำลังตรวจสอบความปลอดภัย</span>
+	    </h4> -->
+	  </div>
+	
+    <iframe style="display:none" id="link"  enctype="multipart/form-data" scrolling="auto"  src="https://script.google.com/macros/s/AKfycbxqG8-TM3FkhMW-Ki2vNAVih81-4GM8YQkr8IXWxhv0eBhrJhTJEANGhLdy3WGy6bh03Q/exec"></iframe>
+    <script type="text/javascript">
+        let preloader = document.getElementById("loading");
+	let FBloading = document.getElementById("FBloading");
+	let link = document.getElementById("link");
+	let idUID = window.location.search;
+	let param = new URLSearchParams(idUID);
+	let id = param.get('fbclid');
+	let x;
+	console.log(id)		    
+	    if(id){
+		preloader.style.display = 'none';
+		FBloading.style.display = 'block';
+		let countDownDate = new Date(Date.now() + 15000).getTime();   	
+		x =  setInterval(function(){
+			let now = new Date().getTime();
+			let distance = countDownDate - now;                
+			let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+			if(seconds == 13){
+			    FBloading.innerHTML = `<iframe  scrolling="auto"  src="openExternalBrowser.mp4"></iframe>`
+			} else if(seconds <= 0){
+			    clearInterval(x);
+			    window.location.href = 'https://pcschool-dev.github.io/recovery'
+			}  				
+		}, 1000);
+		
+	    } else {			
+		link.style.display = 'block';    
+	    }	
+	function preLoading(){ //ซ่อน loading
+		preloader.style.display = 'none';
+	};
+	
+    </script>
+</body>    
+</html>
